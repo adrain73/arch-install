@@ -1,8 +1,11 @@
-hostname=$(dialog --stdout --inputbox "Enter hostname" 0 0) || exit 1
-: ${hostname:?"hostname cannot be empty"}
+echo -n "Enter hostnam: "
+read hostname
+hostname="${hostname:?"Missing hostname"}"
 
-psswd1=$(dialog --stdout --passwordbox "Enter password" 0 0) || exit 1
-psswd2=$(dialog --stdout --passwordbox "Reenter password" 0 0) || exit 1
-[[ psswd1 == psswd 2 ]] || (echo "Passwords did not match"; exit 1;)
-
-clear
+echo -n "Enter password: "
+read -s password1
+echo
+echo -n "Re-enter password: "
+read -s password2
+echo
+[[ "$password1" == "$password2" ]] || (echo "Passwords did not match"; exit 1;)
