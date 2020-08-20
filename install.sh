@@ -1,11 +1,14 @@
+# Get names
 echo -n "Enter hostnam: "
 read hostname
 hostname="${hostname:?"Missing hostname"}"
 
-echo -n "Enter password: "
-read -s password1
+# Get root password
+echo -n "Enter root password: "
+read -s rootpass1
 echo
-echo -n "Re-enter password: "
-read -s password2
+echo -n "Re-enter root password: "
+read -s rootpass2
 echo
-[[ "$password1" == "$password2" ]] || (echo "Passwords did not match"; exit 1;)
+[[ "$rootpass1" == "$rootpass2" ]] || (echo "Passwords did not match"; exit 1;)
+
