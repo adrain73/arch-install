@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Check for internet
+if nc -dzw1 8.8.8.8 443; then
+	:
+else
+	echo "No internet. Aborting.";
+	exit 1;
+fi
+
 # Get hostname
 echo -n "Enter hostname: "
 read hostname
