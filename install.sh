@@ -1,4 +1,6 @@
-# Get names
+#!/bin/bash
+
+# Get hostname
 echo -n "Enter hostnam: "
 read hostname
 hostname="${hostname:?"Missing hostname"}"
