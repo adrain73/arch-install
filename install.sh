@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get hostname
-echo -n "Enter hostnam: "
+echo -n "Enter hostname: "
 read hostname
 hostname="${hostname:?"Missing hostname"}"
 
@@ -24,7 +24,7 @@ echo -n "Enter user password: "
 read -s pass1
 echo
 echo -n "Re-enter user password: "
-read -s
+read -s pass2
 echo
 [[ "$pass1" == "$pass2" ]] || (echo "Passwords did not match"; exit 1;)
 
