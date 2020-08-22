@@ -12,7 +12,14 @@ echo
 echo -n "Re-enter root password: "
 read -s rootpass2
 echo
-[[ "$rootpass1" == "$rootpass2" ]] || (echo "Passwords did not match"; exit 1;)
+
+# check if the they match
+if [ "$rootpass1" == "$rootpass2" ]; then
+	:
+else
+	echo "Passwords did not match"; 
+	exit 1;
+fi
 
 # Get username
 echo -n "Enter username: "
@@ -26,5 +33,12 @@ echo
 echo -n "Re-enter user password: "
 read -s pass2
 echo
-[[ "$pass1" == "$pass2" ]] || (echo "Passwords did not match"; exit 1;)
+
+# Check if they match
+if [ "$pass1" == "$pass2" ]; then
+	:
+else
+	echo "Passwords did not match"; 
+	exit 1;
+fi
 
