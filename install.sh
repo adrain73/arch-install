@@ -1,12 +1,18 @@
 #!/bin/bash
 
 # Check for internet
+echo "Checking for internet connection . . ."
+
 if nc -dzw1 8.8.8.8 443; then
-	:
+	echo "Connected. Proceeding"
 else
 	echo "No internet. Aborting.";
 	exit 1;
 fi
+
+# Wipe drive
+echo "Wiping hard drive"
+shred -vn1 /dev/sda
 
 # Get hostname
 echo -n "Enter hostname: "
