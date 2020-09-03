@@ -1,26 +1,27 @@
 #!/bin/bash
 
-# Check for internet
+### Check for internet
 echo "Checking for internet connection . . ."
-
+# check with netcat 
 if nc -dzw1 8.8.8.8 443; then
-	echo "Connected. Proceeding"
+	echo "Connected. Proceeding."
 else
 	echo "No internet. Aborting.";
 	exit 1;
 fi
 
-# Wipe drive
-echo "Wiping hard drive"
+### Wipe drive
+echo "Wiping drive . . ."
 shred -vn1 /dev/sda
+echo "Wipe complete."
 
-# Partition drive
+### Partition drive
 echo "Paritioning drive . . ."
-parted /dev/sda mklabel gpt
-parted /dev/sda mkpart UEFI fat32 0% 300MiB
-parted set 1 esp on
-parted /dev/sda mkpart root ext4 300MiB 100%
-
+# user -s option for script mode
+parted -s /dev/sda mklabel gpt
+parted -s /dev/sda mkpart UEFI fat32 0% 300MiB
+parted -s /dev/sda set 1 esp on
+parted -s /dev/sda mkpart root ext4 300MiB 100%
 echo "New partition table:"
 parted -l
 
