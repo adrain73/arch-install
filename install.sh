@@ -14,6 +14,16 @@ fi
 echo "Wiping hard drive"
 shred -vn1 /dev/sda
 
+# Partition drive
+echo "Paritioning drive . . ."
+parted /dev/sda mklabel gpt
+parted /dev/sda mkpart UEFI fat32 0% 300MiB
+parted set 1 esp on
+parted /dev/sda mkpart root ext4 300MiB 100%
+
+echo "New partition table:"
+parted -l
+
 # Get hostname
 echo -n "Enter hostname: "
 read hostname
