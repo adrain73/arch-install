@@ -86,3 +86,21 @@ fi
 psswd "$rootpass1"
 echo
 
+### Install bootloader
+echo "Installing bootloader . . ."
+pacman -S grup efibootmgr
+grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
+echo "Install complete."
+echo
+
+### Enable microcode updates
+echo "Enabling microcode updates . . ."
+pacman -S amd-ucode intel-ucode
+grub-mkconfig -o /boot/grub/grub.cfg
+echo "Complete."
+echo
+
+### Reboot to finish
+echo "Rebooting . . ."
+reboot now
+
