@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### Check for internet
+### Check for internet connection
 echo "Checking for internet connection . . ."
 # check with netcat 
 if nc -dzw1 8.8.8.8 443; then
@@ -9,14 +9,17 @@ else
     echo "No internet. Aborting.";
     exit 1;
 fi
+echo
 
 ### Update system clock
+echo "Updating system clock . . ."
 timedatectl set-ntp true
+echo -e "Update complete . . .\n"
 
 ### Wipe drive
 echo "Wiping drive . . ."
 shred -vn1 /dev/sda
-echo "Wipe complete."
+echo -e "Wipe complete.\n"
 
 ### Partition drive
 echo "Paritioning drive . . ."
@@ -27,6 +30,7 @@ parted -s /dev/sda set 1 esp on
 parted -s /dev/sda mkpart root ext4 300MiB 100%
 echo "New partition table:"
 parted -l
+echo
 
 ### Format partitions
 echo "Formatting partitions . . ."
@@ -36,14 +40,15 @@ echo -e "Format complete\n"
 ### Mount file system
 echo "Mounting file system . . ."
 mount /dev/sda2 /mnt
-echo -e "Mount complete . . ."
+echo -e "Mount complete . . .\n"
 
-# Get hostname
+### Get hostname
 echo -n "Enter hostname: "
 read hostname
 hostname="${hostname:?"Missing hostname"}"
+echo
 
-# Get root password
+### Get root password
 echo -n "Enter root password: "
 read -s rootpass1
 echo
@@ -51,7 +56,7 @@ echo -n "Re-enter root password: "
 read -s rootpass2
 echo
 
-# check if the they match
+### Check if the they match
 if [ "$rootpass1" == "$rootpass2" ]; then
     :
 else
@@ -59,12 +64,13 @@ else
     exit 1;
 fi
 
-# Get username
+### Get username
 echo -n "Enter username: "
 read username
 username="${username:?"Missing username"}"
+echo 
 
-# Get password
+### Get password
 echo -n "Enter user password: "
 read -s pass1
 echo
@@ -72,7 +78,7 @@ echo -n "Re-enter user password: "
 read -s pass2
 echo
 
-# Check if they match
+### Check if they match
 if [ "$pass1" == "$pass2" ]; then
     :
 else
