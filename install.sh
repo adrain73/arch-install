@@ -4,11 +4,14 @@
 echo "Checking for internet connection . . ."
 # check with netcat 
 if nc -dzw1 8.8.8.8 443; then
-	echo "Connected. Proceeding."
+    echo "Connected. Proceeding."
 else
-	echo "No internet. Aborting.";
-	exit 1;
+    echo "No internet. Aborting.";
+    exit 1;
 fi
+
+### Update system clock
+timedatectl set-ntp true
 
 ### Wipe drive
 echo "Wiping drive . . ."
@@ -17,7 +20,7 @@ echo "Wipe complete."
 
 ### Partition drive
 echo "Paritioning drive . . ."
-# user -s option for script mode
+# use -s option for script mode
 parted -s /dev/sda mklabel gpt
 parted -s /dev/sda mkpart UEFI fat32 0% 300MiB
 parted -s /dev/sda set 1 esp on
@@ -40,10 +43,10 @@ echo
 
 # check if the they match
 if [ "$rootpass1" == "$rootpass2" ]; then
-	:
+    :
 else
-	echo "Passwords did not match"; 
-	exit 1;
+    echo "Passwords did not match"; 
+    exit 1;
 fi
 
 # Get username
@@ -61,9 +64,9 @@ echo
 
 # Check if they match
 if [ "$pass1" == "$pass2" ]; then
-	:
+    :
 else
-	echo "Passwords did not match"; 
-	exit 1;
+    echo "Passwords did not match"; 
+    exit 1;
 fi
 
