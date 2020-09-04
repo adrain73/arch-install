@@ -28,6 +28,16 @@ parted -s /dev/sda mkpart root ext4 300MiB 100%
 echo "New partition table:"
 parted -l
 
+### Format partitions
+echo "Formatting partitions . . ."
+mkfs.ext /dev/sda2
+echo -e "Format complete\n"
+
+### Mount file system
+echo "Mounting file system . . ."
+mount /dev/sda2 /mnt
+echo -e "Mount complete . . ."
+
 # Get hostname
 echo -n "Enter hostname: "
 read hostname
