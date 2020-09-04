@@ -68,6 +68,7 @@ echo
 echo -n "Enter hostname: "
 read hostname
 hostname="${hostname:?"Missing hostname"}"
+hostnamectl set-hostname "$hostname"
 echo
 
 ### Get root password
@@ -76,35 +77,12 @@ read -s rootpass1
 echo
 echo -n "Re-enter root password: "
 read -s rootpass2
-echo
-
-### Check if the they match
 if [ "$rootpass1" == "$rootpass2" ]; then
     :
 else
     echo "Passwords did not match"; 
     exit 1;
 fi
-
-### Get username
-echo -n "Enter username: "
-read username
-username="${username:?"Missing username"}"
-echo 
-
-### Get password
-echo -n "Enter user password: "
-read -s pass1
+psswd "$rootpass1"
 echo
-echo -n "Re-enter user password: "
-read -s pass2
-echo
-
-### Check if they match
-if [ "$pass1" == "$pass2" ]; then
-    :
-else
-    echo "Passwords did not match"; 
-    exit 1;
-fi
 
