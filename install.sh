@@ -53,6 +53,17 @@ pacstrap /mnt base linux linux-firmware
 echo "Installation complete."
 echo
 
+### Configure system
+echo "Configuring system . . ."
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+hwclock --systohc
+locale-gen
+localectl set-locale LANG=en_US.UTF-8
+echo "Configuration complete."
+echo
+
 ### Get hostname
 echo -n "Enter hostname: "
 read hostname
