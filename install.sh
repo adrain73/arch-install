@@ -5,6 +5,7 @@ echo "Checking for internet connection . . ."
 # check with netcat 
 if nc -dzw1 8.8.8.8 443; then
     echo "Connected. Proceeding."
+    echo
 else
     echo "No internet. Aborting.";
     exit 1;
@@ -14,12 +15,14 @@ echo
 ### Update system clock
 echo "Updating system clock . . ."
 timedatectl set-ntp true
-echo -e "Update complete . . .\n"
+echo "Update complete."
+echo
 
 ### Wipe drive
 echo "Wiping drive . . ."
 shred -vn1 /dev/sda
-echo -e "Wipe complete.\n"
+echo "Wipe complete."
+echo
 
 ### Partition drive
 echo "Paritioning drive . . ."
@@ -35,12 +38,20 @@ echo
 ### Format partitions
 echo "Formatting partitions . . ."
 mkfs.ext /dev/sda2
-echo -e "Format complete\n"
+echo "Format complete."
+echo
 
 ### Mount file system
 echo "Mounting file system . . ."
 mount /dev/sda2 /mnt
-echo -e "Mount complete . . .\n"
+echo "Mount complete."
+echo
+
+### Installation 
+echo "Installing packages . . . "
+pacstrap /mnt base linux linux-firmware
+echo "Installation complete."
+echo
 
 ### Get hostname
 echo -n "Enter hostname: "
