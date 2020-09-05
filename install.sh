@@ -17,12 +17,6 @@ timedatectl set-ntp true
 echo "Update complete."
 echo
 
-### Wipe drive
-echo "Wiping drive . . ."
-shred -n1 /dev/sda
-echo "Wipe complete."
-echo
-
 ### Partition drive
 echo "Paritioning drive . . ."
 # use -s option for script mode
@@ -87,7 +81,8 @@ echo
 
 ### Install bootloader
 echo "Installing bootloader . . ."
-pacman -S grup efibootmgr
+pacman -S grub efibootmgr
+grub-mkconfig -o /boot/grub/grub.cfg
 grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
 echo "Install complete."
 echo
@@ -95,8 +90,7 @@ echo
 ### Enable microcode updates
 echo "Enabling microcode updates . . ."
 pacman -S amd-ucode intel-ucode
-grub-mkconfig -o /boot/grub/grub.cfg
-echo "Complete."
+echo "Compelete"
 echo
 
 ### Reboot to finish
