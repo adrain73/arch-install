@@ -65,18 +65,8 @@ hostnamectl set-hostname "$hostname"
 echo
 
 ### Get root password
-echo -n "Enter root password: "
-read -s rootpass1
-echo
-echo -n "Re-enter root password: "
-read -s rootpass2
-if [ "$rootpass1" == "$rootpass2" ]; then
-    :
-else
-    echo "Passwords did not match"; 
-    exit 1;
-fi
-passwd "$rootpass1"
+echo "Set root password:"
+passwd
 echo
 
 ### Install bootloader
