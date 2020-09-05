@@ -4,18 +4,16 @@
 echo "Checking for internet connection . . ."
 # check with netcat 
 if nc -zw1 8.8.8.8 443; then
-    echo "Connected. Proceeding."
+    echo -e "Connected. Proceeding.\n"
 else
     echo "No internet. Aborting.";
     exit 1;
 fi
-echo
 
 ### Update system clock
 echo "Updating system clock . . ."
 timedatectl set-ntp true
-echo "Update complete."
-echo
+echo -e "Update complete.\n"
 
 ### Partition drive
 echo "Paritioning drive . . ."
@@ -31,20 +29,17 @@ echo
 ### Format partitions
 echo "Formatting partitions . . ."
 mkfs.ext4 /dev/sda2
-echo "Format complete."
-echo
+echo -e "Format complete.\n"
 
 ### Mount file system
 echo "Mounting file system . . ."
 mount /dev/sda2 /mnt
-echo "Mount complete."
-echo
+echo -e "Mount complete.\n"
 
 ### Installation 
 echo "Installing packages . . . "
 pacstrap /mnt base linux linux-firmware
-echo "Installation complete."
-echo
+echo -e "Installation complete.\n"
 
 ### Configure system
 echo "Configuring system . . ."
@@ -54,8 +49,7 @@ ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
 hwclock --systohc
 locale-gen
 localectl set-locale LANG=en_US.UTF-8
-echo "Configuration complete."
-echo
+echo -e "Configuration complete.\n"
 
 ### Get hostname
 echo -n "Enter hostname: "
@@ -74,17 +68,15 @@ echo "Installing bootloader . . ."
 pacman -S grub efibootmgr
 grub-mkconfig -o /boot/grub/grub.cfg
 grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
-echo "Install complete."
-echo
+echo -e "Install complete.\n"
 
 ### Enable microcode updates
 echo "Enabling microcode updates . . ."
 pacman -S amd-ucode intel-ucode
-echo "Compelete"
-echo
+echo -e "Compelete.\n"
 
 ### Reboot to finish
 exit
-echo "Rebooting . . ."
+echo "Rebooting."
 reboot now
 
