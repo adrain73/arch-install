@@ -3,9 +3,8 @@
 ### Check for internet connection
 echo "Checking for internet connection . . ."
 # check with netcat 
-if nc -dzw1 8.8.8.8 443; then
+if nc -zw1 8.8.8.8 443; then
     echo "Connected. Proceeding."
-    echo
 else
     echo "No internet. Aborting.";
     exit 1;
@@ -20,7 +19,7 @@ echo
 
 ### Wipe drive
 echo "Wiping drive . . ."
-shred -vn1 /dev/sda
+shred -n1 /dev/sda
 echo "Wipe complete."
 echo
 
@@ -37,7 +36,7 @@ echo
 
 ### Format partitions
 echo "Formatting partitions . . ."
-mkfs.ext /dev/sda2
+mkfs.ext4 /dev/sda2
 echo "Format complete."
 echo
 
@@ -83,7 +82,7 @@ else
     echo "Passwords did not match"; 
     exit 1;
 fi
-psswd "$rootpass1"
+passwd "$rootpass1"
 echo
 
 ### Install bootloader
@@ -101,6 +100,7 @@ echo "Complete."
 echo
 
 ### Reboot to finish
+exit
 echo "Rebooting . . ."
 reboot now
 
