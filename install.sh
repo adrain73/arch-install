@@ -45,7 +45,11 @@ echo
 
 ### Format partitions
 echo "Formatting partitions . . ."
+mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/sda2
+mount /dev/sda2 /mnt
+mkdir -p /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
 echo -e "Format complete.\n"
 
 ### Mount file system
