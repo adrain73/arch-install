@@ -54,22 +54,25 @@ echo -e "Format complete.\n"
 
 ### Installation 
 echo "Installing packages . . . "
-pacstrap /mnt base linux linux-firmware vim dhcpcd xfce
+pacstrap /mnt base linux linux-firmware vim dhcpcd xorg gnome
 echo -e "Installation complete.\n"
 
 ### Configure system
 echo "Configuring system . . ."
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt
-ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+arch-chroot /mnt <<"EOF"
+datetimectl set-timezone America/Chicago
 hwclock --systohc
 locale-gen
 localectl set-locale LANG=en_US.UTF-8
-echo -e "Configuration complete.\n"
-
-### Set hostname and password
 hostnamectl set-hostname "$hostname"
-passwd
+mkinitcpio -P
+systemctl enable dhcpcd
+systemctl enable gdm.service
+systemctl enable NetworkManager.service
+echo "root:$pass1" | chpasswd
+EOF
+echo -e "Configuration complete.\n"
 
 ### Install bootloader
 echo "Installing bootloader . . ."
