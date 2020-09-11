@@ -10,6 +10,24 @@ else
     exit 1;
 fi
 
+### Get hostname and password from user
+read -p "Enter hostname: " hostname >/dev/tty
+if [ -z "$hostname" ]; then
+    echo "Hostname cannot be empty!";
+    exit 1;
+fi
+echo
+read -p "Enter root password: " -s pass1 >/dev/tty
+echo
+read -p "Re-enter root password: " -s pass2 >/dev/tty
+if [ "$pass1" == "$pass2" ]; then
+    :
+else
+    echo "Passwords did not match!";
+    exit 1;
+fi
+echo
+
 ### Update system clock
 echo "Updating system clock . . ."
 timedatectl set-ntp true
@@ -51,17 +69,9 @@ locale-gen
 localectl set-locale LANG=en_US.UTF-8
 echo -e "Configuration complete.\n"
 
-### Get hostname
-echo -n "Enter hostname: "
-read hostname
-hostname="${hostname:?"Missing hostname"}"
+### Set hostname and password
 hostnamectl set-hostname "$hostname"
-echo
-
-### Get root password
-echo "Set root password:"
 passwd
-echo
 
 ### Install bootloader
 echo "Installing bootloader . . ."
