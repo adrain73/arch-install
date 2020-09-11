@@ -75,19 +75,16 @@ EOF
 echo -e "Configuration complete.\n"
 
 ### Install bootloader
+archchroot /mnt <<"EOF"
 echo "Installing bootloader . . ."
 pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
-grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
 echo -e "Install complete.\n"
-
-### Enable microcode updates
-echo "Enabling microcode updates . . ."
-pacman -S amd-ucode intel-ucode
-echo -e "Compelete.\n"
+EOF
 
 ### Reboot to finish
-exit
 echo "Rebooting."
+umount -R /mnt
 reboot now
 
