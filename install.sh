@@ -2,7 +2,6 @@
 
 ### Check for internet connection
 echo "Checking for internet connection . . ."
-# check with netcat 
 if nc -zw1 8.8.8.8 443; then
     echo -e "Connected. Proceeding.\n"
 else
@@ -36,10 +35,10 @@ echo -e "Update complete.\n"
 ### Partition drive
 echo "Paritioning drive . . ."
 # use -s option for script mode
-parted -s /dev/sda mklabel gpt
-parted -s /dev/sda mkpart UEFI fat32 0% 300MiB
-parted -s /dev/sda set 1 esp on
-parted -s /dev/sda mkpart root ext4 300MiB 100%
+parted -s /dev/sda mklabel gpt \
+    mkpart efi fat32 0% 300MiB \
+    mkpart root ext4 300MiB \
+    set 1 esp on
 echo "New partition table:"
 parted -l
 echo
