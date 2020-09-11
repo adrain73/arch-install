@@ -52,11 +52,6 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 echo -e "Format complete.\n"
 
-### Mount file system
-echo "Mounting file system . . ."
-mount /dev/sda2 /mnt
-echo -e "Mount complete.\n"
-
 ### Installation 
 echo "Installing packages . . . "
 pacstrap /mnt base linux linux-firmware
