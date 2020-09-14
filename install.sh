@@ -60,31 +60,17 @@ echo -e "Installation complete.\n"
 ### Configure system
 echo "Configuring system . . ."
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt <<"EOF"
-datetimectl set-timezone America/Chicago
-hwclock --systohc
-locale-gen
-localectl set-locale LANG=en_US.UTF-8
-hostnamectl set-hostname "$hostname"
-mkinitcpio -P
-systemctl enable dhcpcd
-systemctl enable gdm.service
-systemctl enable NetworkManager.service
-echo "root:$pass1" | chpasswd
-EOF
+arch-chroot /mnt 
 echo -e "Configuration complete.\n"
 
 ### Install bootloader
-archchroot /mnt <<"EOF"
 echo "Installing bootloader . . ."
-pacman -S grub efibootmgr
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
+archchroot /mnt
 echo -e "Install complete.\n"
-EOF
 
 ### Reboot to finish
 echo "Rebooting."
+umount -R /mnt/boot/efi
 umount -R /mnt
 reboot now
 
