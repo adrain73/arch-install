@@ -71,13 +71,13 @@ read "press any key to continue"
 echo "Configuring system . . ."
 genfstab -U /mnt >> /mnt/etc/fstab
 function config {
-    datetimectl set-timezone America/Chicago
+    ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime	
     hwclock --systohc
     locale-gen
-    localectl set-locale LANG=en_US.UTF-8
-    hostnamectl set-hostname "$hostname"
+    echo "LANG=en_US.UTF-8" >> /etc/locale.conf 
+    echo "$hostname" >> /etc/hostname 
+    echo -e "127.0.0.1\t$hostname\n::1\t$hostname\n120.0.1.1\t$hostname.localdomain $hostname"
     mkinitcpio -P
-    systemctl enable dhcpcd
     echo "root:$pass1" | chpasswd
 }
 arch-chroot /mnt config
