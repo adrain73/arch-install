@@ -86,7 +86,6 @@ echo -e "Configuration complete.\n"
 read "press any key to continue"
 
 ### Install bootloader
-archchroot /mnt 
 echo "Installing bootloader . . ."
 function boot {
     pacman -S grub efibootmgr
@@ -94,6 +93,7 @@ function boot {
     grub-mkconfig -o /boot/grub/grub.cfg
 
 }
+arch-chroot /mnt boot
 echo -e "Install complete.\n"
 
 read "press any key to continue"
