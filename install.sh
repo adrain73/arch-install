@@ -9,8 +9,6 @@ else
     exit 1;
 fi
 
-read "press any key to continue"
-
 ### Get hostname and password from user
 read -p "Enter hostname: " hostname >/dev/tty
 if [ -z "$hostname" ]; then
@@ -29,8 +27,6 @@ else
 fi
 echo
 
-read "press any key to continue"
-
 ### Update system clock
 echo "Updating system clock . . ."
 timedatectl set-ntp true
@@ -47,8 +43,6 @@ echo "New partition table:"
 parted -l
 echo
 
-read "press any key to continue"
-
 ### Format partitions
 echo "Formatting partitions . . ."
 mkfs.fat -F32 /dev/sda1
@@ -58,14 +52,10 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 echo -e "Format complete.\n"
 
-read "press any key to continue"
-
 ### Installation 
 echo "Installing packages . . . "
 pacstrap /mnt base linux linux-firmware vim dhcpcd
 echo -e "Installation complete.\n"
-
-read "press any key to continue"
 
 ### Configure system
 echo "Configuring system . . ."
@@ -83,8 +73,6 @@ function config {
 arch-chroot /mnt config
 echo -e "Configuration complete.\n"
 
-read "press any key to continue"
-
 ### Install bootloader
 echo "Installing bootloader . . ."
 function boot {
@@ -96,10 +84,8 @@ function boot {
 arch-chroot /mnt boot
 echo -e "Install complete.\n"
 
-read "press any key to continue"
-
 ### Reboot to finish
-echo "Rebooting."
+echo "Rebooting . . ."
 umount -R /mnt
 reboot now
 
