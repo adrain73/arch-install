@@ -59,30 +59,9 @@ echo -e "Installation complete.\n"
 
 ### Configure system
 echo "Configuring system . . ."
-genfstab -U /mnt >> /mnt/etc/fstab
-function config {
-    ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime	
-    hwclock --systohc
-    locale-gen
-    echo "LANG=en_US.UTF-8" >> /etc/locale.conf 
-    echo "$hostname" >> /etc/hostname 
-    echo -e "127.0.0.1\t$hostname\n::1\t$hostname\n120.0.1.1\t$hostname.localdomain $hostname"
-    mkinitcpio -P
-    echo "root:$pass1" | chpasswd
-}
-arch-chroot /mnt config
-echo -e "Configuration complete.\n"
 
-### Install bootloader
-echo "Installing bootloader . . ."
-function boot {
-    pacman -S grub efibootmgr
-    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
-    grub-mkconfig -o /boot/grub/grub.cfg
-
-}
-arch-chroot /mnt boot
-echo -e "Install complete.\n"
+# Run subcript in chroot
+arch-chroot $(curl -sL git.io/JkILq)
 
 ### Reboot to finish
 echo "Rebooting . . ."
