@@ -7,10 +7,6 @@ For more information about Arch see their [documentation.](https://www.archlinux
 For more information about what goes into installing Arch see the [installation guide.](https://wiki.archlinux.org/index.php/installation_guide)
 This script mostly follows the steps in the guide in the order they are listed.
 
-Arch is a very hands on operating system and requires a lot of knowledge and time for the user to properly use.
-It is generally not advised as a first linux distribution to try.
-For first time linux users or users wanting to get a more user friendly Arch based distrobution consider trying [Manjaro Linux.](https://manjaro.org/)
-
 ## The Script
 This is a bash script meant to almost completely automate an installation of Arch Linux.
 You can see the raw file of the install.sh with this short url: https://git.io/JUYmw
