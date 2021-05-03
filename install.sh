@@ -62,7 +62,7 @@ echo "Configuring system . . ."
 genfstab -U /mnt >> /mnt/etc/fstab before chroot
 
 # Run subcript in chroot
-arch-chroot $(curl -sL git.io/JkILq)
+arch-chroot /mnt $(curl -sL git.io/JkILq)
 
 ### Reboot to finish
 echo "Rebooting . . ."
