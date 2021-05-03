@@ -6,7 +6,7 @@ hwclock --systohc
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf 
 echo "$hostname" >> /etc/hostname 
-echo -e "127.0.0.1\t$hostname\n::1\t$hostname\n120.0.1.1\t$hostname.localdomain $hostname"
+echo -e "127.0.0.1\t$hostname\n::1\t$hostname\n127.0.1.1\t$hostname.localdomain $hostname" >> /etc/hosts
 mkinitcpio -P
 echo "root:$pass1" | chpasswd
 
