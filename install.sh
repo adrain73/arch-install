@@ -64,8 +64,6 @@ genfstab -U /mnt >> /mnt/etc/fstab before chroot
 # Run subcript in chroot
 arch-chroot /mnt $(curl -sL git.io/JkILq)
 
-### Reboot to finish
-echo "Rebooting . . ."
-umount -R /mnt
-reboot now
+### Finished
+echo -e "Installation Finished."
 
