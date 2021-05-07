@@ -54,7 +54,7 @@ echo -e "Format complete.\n"
 
 ### Installation 
 echo "Installing packages . . . "
-pacstrap /mnt base linux linux-firmware sudo vim dhcpcd curl
+pacstrap /mnt base linux linux-firmware vim dhcpcd
 echo -e "Installation complete.\n"
 
 ### Configure system
