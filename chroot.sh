@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ### Subscript to run in chroot environemnt
 
 ### Configure system
