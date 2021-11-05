@@ -32,6 +32,7 @@ echo -e "Configuration complete.\n"
 
 ### Install bootloader
 echo "Installing bootloader . . ."
+pacman -Sy  # generate database files so we can actually find grub
 pacman -S grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
