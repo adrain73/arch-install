@@ -44,7 +44,9 @@ echo "Configuring system . . ."
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Run subcript in chroot
-arch-chroot /mnt $(curl -sL git.io/JkILq)
+curl -sL git.io/JkILq -O
+chmod +x ./JkILq
+arch-chroot /mnt ./JkILq
 
 ### Finished
 echo -e "Installation Finished."
