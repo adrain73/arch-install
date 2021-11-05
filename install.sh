@@ -9,24 +9,6 @@ else
     exit 1;
 fi
 
-### Get hostname and password from user
-read -p "Enter hostname: " hostname >/dev/tty
-if [ -z "$hostname" ]; then
-    echo "Hostname cannot be empty!";
-    exit 1;
-fi
-echo
-read -p "Enter root password: " -s pass1 >/dev/tty
-echo
-read -p "Re-enter root password: " -s pass2 >/dev/tty
-if [ "$pass1" == "$pass2" ]; then
-    :
-else
-    echo "Passwords did not match!";
-    exit 1;
-fi
-echo
-
 ### Update system clock
 echo "Updating system clock . . ."
 timedatectl set-ntp true
@@ -59,7 +41,7 @@ echo -e "Installation complete.\n"
 
 ### Configure system
 echo "Configuring system . . ."
-genfstab -U /mnt >> /mnt/etc/fstab before chroot
+genfstab -U /mnt >> /mnt/etc/fstab
 
 # Run subcript in chroot
 arch-chroot /mnt $(curl -sL git.io/JkILq)
